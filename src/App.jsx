@@ -18,7 +18,7 @@ class App extends React.Component {
       TR: [0, 0], //Top-Right
       BL: [0, 0], //Bottom-Left
       BR: [0, 0], //Bottom-Right
-      aspectRatio: 16 / 9
+      aspectRatio: [16, 9]
     }
   }
 
@@ -85,56 +85,62 @@ class App extends React.Component {
   updateAdj = () => {
     const { TL, TR, BL, BR } = this.state
 
-    switch (this.state.draggingTarget.id) {
-      case "TL":
-        this.setState({
-          TR: [TR[0], TL[1]],
-          BL: [TL[0], BL[1]]
-        });
-        break;
-      case "TR":
-        this.setState({
-          TL: [TL[0], TR[1]],
-          BR: [TR[0], BR[1]]
-        });
-        break;
-      case "BL":
-        this.setState({
-          TL: [BL[0], TL[1]],
-          BR: [BR[0], BL[1]]
-        });
-        break;
-      case "BR":
-        this.setState({
-          TR: [BR[0], TR[1]],
-          BL: [BL[0], BR[1]]
-        });
-        break;
+    if (this.state.draggingTarget) {
+      switch (this.state.draggingTarget.id) {
+        case "TL":
+          this.setState({
+            TR: [TR[0], TL[1]],
+            BL: [TL[0], BL[1]]
+          });
+          break;
+        case "TR":
+          this.setState({
+            TL: [TL[0], TR[1]],
+            BR: [TR[0], BR[1]]
+          });
+          break;
+        case "BL":
+          this.setState({
+            TL: [BL[0], TL[1]],
+            BR: [BR[0], BL[1]]
+          });
+          break;
+        case "BR":
+          this.setState({
+            TR: [BR[0], TR[1]],
+            BL: [BL[0], BR[1]]
+          });
+          break;
 
-      default:
-        break;
+        default:
+          break;
+      }
     }
   }
 
-
-
   componentDidMount() {
     const { TR, BL, aspectRatio } = this.state
+    const imageWidth = parseFloat(document.getElementById("image-container").style.width.substr(0, (document.getElementById("image-container").style.width).length - 2))
+    const imageHeight = parseFloat(document.getElementById("image-container").style.height.substr(0, (document.getElementById("image-container").style.height).length - 2))
 
     this.setState({
-      TR: [aspectRatio * 100, TR[1]],
-      BR: [aspectRatio * 100, BL[1]]
+      TR: [aspectRatio[0] * (imageWidth /50), TR[1]],
+      BL: [BL[0], aspectRatio[1] * (imageHeight /50)],
+      BR: [aspectRatio[0] * (imageWidth /50), aspectRatio[1] * (imageHeight /50)]
     })
   }
 
   render() {
     const { TL, TR, BL, BR } = this.state
+
     return (
       <div
-        id="app"
+        id="image-container"
+        style={{width: "300px", height: "500px"}}
         onMouseDown={e => this.dragStart(e)}
         onMouseMove={e => this.dragging(e)}
-        onMouseUp={this.resetDraggingElement}>
+        onMouseUp={this.resetDraggingElement}
+        onMouseLeave={() => { this.dragEnd(); this.updateAdj() }}>
         <Draggable id="TL" positions={TL} setDraggingElement={this.setDraggingElement} />
         <Draggable id="TR" positions={TR} setDraggingElement={this.setDraggingElement} />
         <Draggable id="BL" positions={BL} setDraggingElement={this.setDraggingElement} />
@@ -149,5 +155,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-// <div id="TL-TR" style={{ left: TL[0] + "px", top: TL[1] + "px", width: (TR[0] - TL[0]) + "px" }} className="line" />

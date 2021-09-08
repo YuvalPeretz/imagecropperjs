@@ -2,11 +2,10 @@ body {
     margin: 0px;
 }
 
-#app {
+#image-container {
     max-width: 100%;
     position: relative;
     height: 100vh;
-    width: 100vw;
     background-color: black;
 }
 
