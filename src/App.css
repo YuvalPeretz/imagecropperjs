@@ -3,10 +3,11 @@ body {
 }
 
 #image-container {
+    border: 1px solid grey;
     max-width: 100%;
     position: relative;
-    height: 100vh;
-    background-color: black;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .draggable {
@@ -14,10 +15,9 @@ body {
     height: 10px;
     width: 10px;
     background-color: #6565dd;
-    border-radius: 2px;
+    border-radius: 3px;
     box-shadow: 0px 0px 5px #7878df;
     color: white;
-    overflow: hidden;
 }
 
 .draggable:hover {
@@ -29,19 +29,4 @@ body {
     background-color: #6565dd;
     min-height: 1px;
     min-width: 1px;
-    margin-top: 5px;
-    margin-left: 5px;
-}
-
-#TR {
-    left:200px
-}
-
-#BL {
-    top: 200px;
-}
-
-#BR {
-    top: 200px;
-    left:200px
 }

@@ -9,7 +9,7 @@ const Draggable = ({ setDraggingElement, id, positions }) => {
             id={id}
             className="draggable"
             onMouseDown={setDraggingElement}
-            style={{ left: `${left}px`, top: `${top}px` }} />
+            style={{ left: `${left -5}px`, top: `${top -5}px` }} />
     );
 }
 
