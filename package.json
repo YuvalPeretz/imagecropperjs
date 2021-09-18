@@ -1,7 +1,8 @@
 {
-  "name": "imagecropperjs",
+  "publish:npm": "rm -rf dist && mkdir dist &&  babel src/components -d dist --copy-files",
+  "name": "image-cropper-react",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -34,5 +35,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/preset-react": "^7.14.5"
   }
 }
